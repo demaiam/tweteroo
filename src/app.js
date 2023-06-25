@@ -22,7 +22,8 @@ app.post("/sign-up", (req, res) => {
 
 app.get("/tweets", (req, res) => {
     let lastTenTweets = [];
-    for (let i = tweetsArr.length; i > tweetsArr.length - 10; i--) {
+    let i = tweetsArr.length;
+    while (i > tweetsArr.length - 10 || i > -1) {
         let username = tweetsArr[i].username;
         let tweet = tweetsArr[i].tweet;
         let avatar = usersArr.find(element => element.username === username).avatar;
@@ -32,6 +33,7 @@ app.get("/tweets", (req, res) => {
             tweet: tweet
         };
         lastTenTweets.push(tweetObj);
+        i -= 1;
     }
     res.send(lastTenTweets);
 });
