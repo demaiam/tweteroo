@@ -33,7 +33,7 @@ app.get("/tweets", (req, res) => {
     else {
     	aux = 0;
     }
-    for (let i = tweetsArr.length - aux; i < tweetsArr.length; i++) {
+    for (let i = tweetsArr.length - aux; i < tweetsArr.length; i--) {
         let username = tweetsArr[i].username;
         let tweet = tweetsArr[i].tweet;
         let avatar = usersArr.find(element => element.username === username).avatar;
