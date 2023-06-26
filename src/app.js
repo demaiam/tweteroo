@@ -27,14 +27,14 @@ app.post("/sign-up", (req, res) => {
 app.get("/tweets", (req, res) => {
     let lastTweets = [];
     let aux = 10;
-    if (tweetsArr.length <= 10) {
+    if (tweetsArr.length < 10) {
     	aux = tweetsArr.length;
     }
-    for (let i = tweetsArr.length - aux; i < tweetsArr.length; i++) {
+    for (let i = tweetsArr.length; i > tweetsArr.length - aux; i--) {
         let tweetObj = {
-            username: tweetsArr[i].username,
-            avatar: usersArr.find(element => element.username === tweetsArr[i].username).avatar,
-            tweet: tweetsArr[i].tweet
+            username: tweetsArr[i-1].username,
+            avatar: usersArr.find(element => element.username === tweetsArr[i-1].username).avatar,
+            tweet: tweetsArr[i-1].tweet
         };
         lastTweets.push(tweetObj);
     }
