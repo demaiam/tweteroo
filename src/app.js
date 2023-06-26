@@ -42,7 +42,7 @@ app.post("/tweets", (req, res) => {
 
 app.get("/tweets", (req, res) => {
     let lastTweets = [];
-    for (let i = 0; i < tweetsArr.length - aux; i++) {
+    for (let i = 0; i < tweetsArr.length; i++) {
         const tweetObj = {
             username: tweetsArr[i].username,
             avatar: usersArr.find(e => e.username === tweetsArr[i].username).avatar,
