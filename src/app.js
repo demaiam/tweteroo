@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 const usersArr = [];
 const tweetsArr = [];
@@ -28,7 +28,8 @@ app.post("/tweets", (req, res) => {
 		res.status(400).send("Todos os campos são obrigatórios!"); 
 		return;
 	}
-    if (!usersArr.includes(username)) {
+    const userExists = usersArr.find(u => u.username === username);
+    if (!userExists) {
         res.send("UNAUTHORIZED");
         return;
     }
@@ -42,15 +43,19 @@ app.post("/tweets", (req, res) => {
 
 app.get("/tweets", (req, res) => {
     let lastTweets = [];
-    for (let i = 0; i < tweetsArr.length; i++) {
+    let aux = 10;
+    if (tweetsArr.length < 10) {
+    	aux = tweetsArr.length;
+    }
+    for (let i = tweetsArr.length; i > tweetsArr.length - aux; i--) {
         const tweetObj = {
-            username: tweetsArr[i].username,
-            avatar: usersArr.find(e => e.username === tweetsArr[i].username).avatar,
-            tweet: tweetsArr[i].tweet
+            username: tweetsArr[i-1].username,
+            avatar: usersArr.find(e => e.username === tweetsArr[i-1].username).avatar,
+            tweet: tweetsArr[i-1].tweet
         };
         lastTweets.push(tweetObj);
     }
-    res.send(lastTweets.slice(-10, lastTweets.length));
+    res.send(lastTweets);
 });
 
 app.listen(5000);
