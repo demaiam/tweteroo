@@ -30,7 +30,7 @@ app.get("/tweets", (req, res) => {
     if (tweetsArr.length <= 10) {
     	aux = tweetsArr.length;
     }
-    for (let i = tweetsArr.length - 1; i > tweetsArr.length - 1 - aux; i--) {
+    for (let i = tweetsArr.length - aux; i < tweetsArr.length; i++) {
         let tweetObj = {
             username: tweetsArr[i].username,
             avatar: usersArr.find(element => element.username === tweetsArr[i].username).avatar,
