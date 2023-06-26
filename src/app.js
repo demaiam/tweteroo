@@ -42,19 +42,15 @@ app.post("/tweets", (req, res) => {
 
 app.get("/tweets", (req, res) => {
     let lastTweets = [];
-    let aux = 10;
-    if (tweetsArr.length < 10) {
-    	aux = tweetsArr.length;
-    }
-    for (let i = tweetsArr.length; i > tweetsArr.length - aux; i--) {
+    for (let i = 0; i < tweetsArr.length - aux; i++) {
         const tweetObj = {
-            username: tweetsArr[i-1].username,
-            avatar: usersArr.find(e => e.username === tweetsArr[i-1].username).avatar,
-            tweet: tweetsArr[i-1].tweet
+            username: tweetsArr[i].username,
+            avatar: usersArr.find(e => e.username === tweetsArr[i].username).avatar,
+            tweet: tweetsArr[i].tweet
         };
         lastTweets.push(tweetObj);
     }
-    res.send(lastTweets);
+    res.send(lastTweets.slice(-10, lastTweets.length));
 });
 
 app.listen(5000);
