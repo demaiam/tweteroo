@@ -25,20 +25,20 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-    let lastTenTweets = [];
-    let aux = 10;
+    let lastTweets = [];
+    let aux = 11;
     if (tweetsArr.length < 10) {
-    	aux = tweetsArr.length;
+    	aux = tweetsArr.length - 1;
     }
-    for (let i = tweetsArr.length - 1; i > tweetsArr.length - 1 - aux; i--) {
+    for (let i = tweetsArr.length - 1; i > tweetsArr.length - aux; i--) {
         let tweetObj = {
             username: tweetsArr[i].username,
             avatar: usersArr.find(element => element.username === tweetsArr[i].username).avatar,
             tweet: tweetsArr[i].tweet
         };
-        lastTenTweets.push(tweetObj);
+        lastTweets.push(tweetObj);
     }
-    res.status(200).send(lastTenTweets);
+    res.status(200).send(lastTweets);
 });
 
 app.post("/tweets", (req, res) => {
@@ -47,7 +47,7 @@ app.post("/tweets", (req, res) => {
         res.send("UNAUTHORIZED");
         return;
     }
-    const newTweet = {
+    let newTweet = {
         username: username,
         tweet: tweet
     }
